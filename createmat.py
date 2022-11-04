@@ -35,7 +35,7 @@ def read_ale(filename):
             line = fp.readline()
             l = line.split()
             l.pop(0)
-            regions.append([int(x) for x in l])
+            regions.append([(int(x) + 1) for x in l])
         # read boundary
         for line in fp:
             if line.startswith('#'):
@@ -57,7 +57,7 @@ def read_ale(filename):
                 break
     return vertices, regions, boundary, (x_min, x_max, y_min, y_max)
 
-vertices, regions, boundary, bounding_box = read_ale("meshes/testVEM.ale")
+vertices, regions, boundary, bounding_box = read_ale("meshes/chico.ale")
 
 for i in range(0, len(vertices)):
     vertices[i] = np.array(vertices[i])
@@ -72,6 +72,15 @@ for i in range(0, len(vertices)):
 #print(np_regions)
 mesh = scipy.io.loadmat("meshes/voronoi.mat")
 
+print(mesh["vertices"])
+
+min_x = mesh["vertices"][:,0].min()
+max_x = mesh["vertices"][:,0].max()
+min_y = mesh["vertices"][:,1].min()
+max_y = mesh["vertices"][:,1].max()
+
+print(min_x, max_x, min_y, max_y)
+
 np_regions = []
 for i in range(0, len(regions)):
     sub_region = []
@@ -79,20 +88,27 @@ for i in range(0, len(regions)):
         sub_region.append(np.array(v))
     sub_region = np.array(sub_region)
     col_vec = sub_region[:, None]
-    new_wea = np.array(col_vec, dtype='uint16')
+    new_wea = np.array(col_vec, dtype='uint32')
     np_regions.append(new_wea)
 np_regions = np.array(np_regions)
 np_regions = np_regions[:, None]
 
 np_boundary = []
 for v in boundary:
-    np_boundary.append(np.array(v, dtype='uint16'))
+    np_boundary.append(np.array(v, dtype='uint32'))
 np_boundary = np.array(np_boundary)
-np_boundary = np_boundary[:, None]
+np_boundary = np_boundary.reshape((np_boundary.shape[0], 1))
 
-mdic = {"boundary": boundary, "elements": regions, "vertices": vertices}
+mdic = {"boundary": np_boundary, "elements": np_regions, "vertices": vertices}
 
-scipy.io.savemat("meshes/testVEM500.mat", mdic)
+#print(mesh["elements"])
+#print(mesh["boundary"])
+#print(mesh["vertices"])
+#
+scipy.io.savemat("meshes/testVEM.mat", mdic)
+
+
+
 
 #print(mesh['elements'])
 #print(mesh.keys())

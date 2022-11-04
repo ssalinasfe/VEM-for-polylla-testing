@@ -25,6 +25,25 @@ def square_domain_rhs(point):
     f = 15 * np.sin(np.pi * x) * np.sin(np.pi * y)
     return f
 
+# pa pruebas
+def harmonic_boundary_condition(points):
+    x = points[:, 0]
+    y = points[:, 1]
+
+    g = np.sin(4*np.pi * x) + np.sin(4*np.pi * y)
+    return g
+
+
+def harmonic_rhs(point):
+    x = point[0]
+    y = point[1]
+
+    f = (x**2 + y**2)*100
+    return f
+
+D_boundary_condition = harmonic_boundary_condition
+D_rhs = harmonic_rhs
+
 
 def L_domain_rhs(point):
     return 0
@@ -234,6 +253,8 @@ def main():
         u = vem(mesh_file, square_domain_rhs, square_domain_boundary_condition)
     elif args.d == "l":
         u = vem(mesh_file, L_domain_rhs, L_domain_boundary_condition)
+    elif args.d == "d":
+        u = vem(mesh_file, D_rhs, D_boundary_condition)
     else:
         raise RuntimeError("Shape of domain not supported!")
 
