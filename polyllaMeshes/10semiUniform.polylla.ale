@@ -1,20 +1,36 @@
 # domain type
 Custom
 # nodal coordinates: number of nodes followed by the coordinates 
-5
-0 0
-1 0
-1 1
+13
 0 1
+1 1
+1 0
+0 0
 0.5 0.5
+0 0.5
+0.5 0
+0.5 1
+0.25 0.25
+1 0.5
+0.25 0.75
+0.75 0.75
+0.75 0.25
 # element connectivity: number of elements followed by the elements
-4
-3 0 1 4
-3 1 2 3
-3 2 3 4
-3 3 0 4
+12
+4 9 11 4 12 
+4 4 10 5 8 
+3 7 0 10 
+3 0 5 10 
+4 4 8 6 12 
+3 3 6 8 
+3 1 7 11 
+3 5 3 8 
+3 9 1 11 
+4 4 11 7 10 
+3 2 9 12 
+3 6 2 12 
 # indices of nodes located on the Dirichlet boundary
-0 1 2 3
+2 9 1 7 0 5 3 6 
 # indices of nodes located on the Neumann boundary
 0
 # xmin, xmax, ymin, ymax of the bounding box

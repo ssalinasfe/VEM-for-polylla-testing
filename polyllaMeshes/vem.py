@@ -64,7 +64,14 @@ def vem(mesh_file, rhs, boundary_condition):
 
     mesh = scipy.io.loadmat(mesh_file)
 
-    print(mesh)
+    print("vertices")
+    print(mesh['vertices'])
+    
+    print("elements")
+    print(mesh['elements'])
+
+    print("boundary")
+    print(mesh['boundary'])
 
     vertices = mesh['vertices']
 
