@@ -64,14 +64,14 @@ def vem(mesh_file, rhs, boundary_condition):
 
     mesh = scipy.io.loadmat(mesh_file)
 
-    print("vertices")
-    print(mesh['vertices'])
-    
-    print("elements")
-    print(mesh['elements'])
-
-    print("boundary")
-    print(mesh['boundary'])
+    #print("vertices")
+    #print(mesh['vertices'])
+    #
+    #print("elements")
+    #print(mesh['elements'])
+#
+    #print("boundary")
+    #print(mesh['boundary'])
 
     vertices = mesh['vertices']
 
@@ -180,8 +180,8 @@ def vem(mesh_file, rhs, boundary_condition):
 
     K_II = K_II.reshape(num_idof, num_idof)
     
-    print(K_II, F[internal_dofs])
-    print(np.linalg.eigvals(K_II))
+    #print(K_II, F[internal_dofs])
+    #print(np.linalg.eigvals(K_II))
     u[internal_dofs] = np.linalg.solve(K_II, F[internal_dofs])
     u[boundary] = boundary_vals
 
