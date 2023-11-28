@@ -180,6 +180,14 @@ def vem(mesh_file, rhs, boundary_condition):
 
     K_II = K_II.reshape(num_idof, num_idof)
     
+    norms = np.linalg.norm(K, axis=1)
+    ids = np.where(norms==0.0)[0]
+    coords = vertices[ids,:]
+
+    print(f'min of norms: {norms.min()}')
+    print(f'ids: {ids}')
+    print(f'coords: {coords}')
+
     #print(K_II, F[internal_dofs])
     #print(np.linalg.eigvals(K_II))
     u[internal_dofs] = np.linalg.solve(K_II, F[internal_dofs])
